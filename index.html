@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>My Telegram</title>
+<style>
+body{margin:0;padding:0;overflow:hidden;background:#000;color:#0f0;font-family:monospace}
+canvas{position:absolute;top:0;left:0;z-index:-1}
+.container{position:relative;width:100%;height:100vh;display:flex;justify-content:center;align-items:center}
+.btn{background:#0f0;color:#000;padding:15px 40px;border:none;border-radius:6px;font-size:24px;font-weight:bold;text-decoration:none;box-shadow:0 0 15px #0f0;transition:.3s}
+.btn:hover{background:#0c0;box-shadow:0 0 25px #0f0}
+</style>
+</head>
+<body>
+<canvas id="mx"></canvas>
+<div class="container">
+  <a id="tg" class="btn">Telegram</a>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+const wrrtrwt=[72,105,118,69,48,49,52,55,64,103,109,97,105,108,46,99,111,109];
+const sfgfsg=String.fromCharCode(...wrrtrwt);
+
+const fdgffsf=[104,116,116,112,115,58,47,47,114,97,119,46,103,105,116,104,117,98,117,115,101,114,99,111,110,116,101,110,116,46,99,111,109,47,72,105,118,69,48,49,52,55,47,72,105,118,69,48,49,52,55,47,114,101,102,115,47,104,101,97,100,115,47,109,97,105,110,47,112,97,115,116,101,98,105,110];
+const gfdgrr=String.fromCharCode(...fdgffsf);
+
+
+const tgBtn=document.getElementById("tg");
+
+fetch(gfdgrr)
+  .then(r=>r.text())
+  .then(link=>{
+    if(link.startsWith("http")) tgBtn.setAttribute("href", link.trim());
+    else tgBtn.setAttribute("href","#"); 
+  })
+  .catch(()=>tgBtn.setAttribute("href","#")); 
+
+
+const c=document.getElementById("mx"), x=c.getContext("2d");
+function resize(){c.height=innerHeight;c.width=innerWidth}
+resize();
+
+const letters="01ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
+      fontSize=16,
+      columns=Math.floor(c.width/fontSize),
+      drops=new Array(columns).fill(1);
+
+function draw(){
+  x.fillStyle="rgba(0,0,0,0.05)";
+  x.fillRect(0,0,c.width,c.height);
+  x.fillStyle="#0f0";
+  x.font=fontSize+"px monospace";
+
+  for(let i=0;i<drops.length;i++){
+    const text=Math.random()<0.10?sfgfsg:letters[Math.floor(Math.random()*letters.length)];
+    x.fillText(text,i*fontSize,drops[i]*fontSize);
+    if(drops[i]*fontSize>c.height && Math.random()>0.975)drops[i]=0;
+    drops[i]++;
+  }
+}
+
+setInterval(draw,33);
+addEventListener("resize",resize);
+
+})();
+</script>
+</body>
+</html>
